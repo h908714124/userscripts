@@ -7,37 +7,48 @@
 // @grant       none
 // ==/UserScript==
 
-function click(id, callback) {
+function click(fn, cb) {
   var intervalId = setInterval(function() {
-    var x = document.getElementById(id);
+    var x = fn();
     if (x) {
       x.click();
-      clearInterval(intervalId);  
-      if (callback) {
-        callback();
+      clearInterval(intervalId);
+      if (cb) {
+        cb();
       }
     }
   }, 5000);  
 }
 
-function remove(id, callback) {
+function remove(fn) {
   var intervalId = setInterval(function() {
-    var x = document.getElementById(id);
+    var x = fn();
     if (x) {
       x.parentNode.removeChild(x);
       clearInterval(intervalId);  
-      if (callback) {
-        callback();
-      }
     }
   }, 5000);  
 }
 
-click("toggleButton", function() {
-  remove("related", function() {
-    remove("comments", function() {
-      remove("ticker");
-    });
-  });
+function byId(id) {
+  return function() {
+    return document.getElementById(id);
+  }; 
+};
+
+// show full description
+click(function() {
+  return document.querySelector("paper-button#more");
 });
 
+// stop autoplay (it's always enabled without cookies)
+click(byId("toggleButton"), function() {
+  // remove the distracting suggestions
+  remove(byId("related"));  
+});
+
+// remove comments (they won't load without cookies)
+remove(byId("comments"));
+
+// remove privacy reminder (it's always showing without cookies)
+remove(byId("ticker"));
