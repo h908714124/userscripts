@@ -32,7 +32,8 @@ function remove(fn) {
 
 function byId(id) {
   return function() {
-    return document.getElementById(id);
+    var el = document.getElementById(id);
+    return el;
   }; 
 };
 
@@ -45,6 +46,12 @@ click(function() {
 click(byId("toggleButton"), function() {
   // remove the distracting suggestions
   remove(byId("related"));  
+});
+
+// stop autoplay (other way)
+click(byId("autoplay-checkbox-label"), function() {
+  // remove the distracting suggestions
+  remove(byId("related"));
 });
 
 // remove comments (they won't load without cookies)
