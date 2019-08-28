@@ -18,7 +18,7 @@ window.addEventListener("load", function() {
     for (var i = 0; i < test.length; i++) {
       var s = test[i];
       if (item.textContent.includes(s) && item.textContent.includes('ANWESEND')) {
-        acc += s.charAt(0) + ', '
+        acc += s+ ', '
       }
     }
   }
