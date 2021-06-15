@@ -8,7 +8,7 @@
 var onTimeout = function() {
   var list = document.getElementsByTagName('span')
   for (let item of list) {
-    if (item.innerHTML == 'See ticker overview') {
+    if (item.innerHTML == 'See overview') {
       item.click()
     }
   } 
